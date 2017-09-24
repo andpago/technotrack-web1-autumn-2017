@@ -58,20 +58,22 @@ def get_response(request):
 
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-server_socket.bind(('localhost', 8000))  #
-server_socket.listen(0)  #
+# связываем server_socket c 8000 портом
+server_socket.bind(('localhost', 8000))  
+server_socket.listen(0)  # слушаем, что нам отправит клиент
 
 print('Started')
 
 while True:
     try:
         (client_socket, address) = server_socket.accept()
-        print('Got new client', client_socket.getsockname())  #
-        request_string = client_socket.recv(2048)  #
-        client_socket.send(get_response(request_string))  #
+        # печатаем клиентский сокет
+        print('Got new client', client_socket.getsockname())
+        request_string = client_socket.recv(2048)  # принимаем 2048 байт
+        client_socket.send(get_response(request_string))  # отправляем ответ
         client_socket.close()
-    except KeyboardInterrupt:  #
+    except KeyboardInterrupt:  # если пользователь нажал Ctrl+C
         print('Stopped')
-        server_socket.close()  #
+        server_socket.close()  # закрываем соединение
         exit()
  
