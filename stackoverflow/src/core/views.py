@@ -5,4 +5,4 @@ from django.shortcuts import render
 
 
 def rootView(request):
-    return HttpResponse("Hello, welcome to the main page")
+    return render(request, "core/home.html")
