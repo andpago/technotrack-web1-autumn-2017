@@ -3,6 +3,7 @@ from django.db import models
 
 # Create your models here.
 from django.utils import timezone
+from autoslug import AutoSlugField
 
 
 class User(AbstractUser):
@@ -10,6 +11,7 @@ class User(AbstractUser):
     bio = models.TextField(blank=True, default='')
     created = models.DateTimeField(editable=False)
     modified = models.DateTimeField()
+    slug = AutoSlugField(populate_from='username')
 
     def save(self, *args, **kwargs):
         """ On save, update timestamps """

@@ -1,7 +1,7 @@
 {% extends "core/base.html" %}
 
 {% block body %}
-    <p>Author: {{ author_username }}</p>
+    <p>Author: <a href="{% url 'core:user' author.slug %}">{{ author.username }}</a></p>
     <h1>{{ title }}</h1>
     <p>{{ text }}</p>
 {% endblock %}

@@ -15,10 +15,11 @@ class QuestionDetailView(DetailView):
         question = self.get_object()
 
         context['text'] = question.text
-        context['author_username'] = question.author.username
+        context['author'] = question.author
         context['title'] = question.title
 
         return context
+
 
 class QuestionListView(ListView):
     model = Question
