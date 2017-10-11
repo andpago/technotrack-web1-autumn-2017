@@ -1,0 +1,10 @@
+<div>
+<p>Author: <a href="{% url 'core:user' author.slug %}">{{ author.username }}</a></p>
+    {% if link %}
+        <a href="{% url 'question:question' pk=question.pk %}">{{ question.title }}</a>
+    {% else %}
+        <h1>{{ question.title }}</h1>
+    {% endif %}
+
+    <p>{{ question.text }}</p>
+</div>

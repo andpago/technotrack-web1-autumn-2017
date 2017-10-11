@@ -1,19 +1,19 @@
 from django.db import models
-from django.conf import settings
-from django.utils import timezone
 
+# Create your models here.
+from django.utils import timezone
+from django.conf import settings
+from question.models import Question
 
 User = settings.AUTH_USER_MODEL
 
-# Create your models here.
 
-
-class Question(models.Model):
+class Answer(models.Model):
     author = models.ForeignKey(User)
-    title = models.CharField(max_length=255, null=False)
     text = models.TextField()
     created = models.DateTimeField(editable=False)
     modified = models.DateTimeField()
+    question = models.ForeignKey(Question, null=False, related_name='answers')
 
     def save(self, *args, **kwargs):
         """ On save, update timestamps """

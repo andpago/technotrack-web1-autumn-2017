@@ -1,7 +1,9 @@
 {% extends "core/base.html" %}
 
 {% block body %}
-    <p>Author: <a href="{% url 'core:user' author.slug %}">{{ author.username }}</a></p>
-    <h1>{{ title }}</h1>
-    <p>{{ text }}</p>
+    {% include 'question/block/question.html' with question=question author=author %}
+    Answers:
+    {% for ans in answers %}
+        {% include 'answer/block/answer.html' with answer=ans %}
+    {% endfor %}
 {% endblock %}

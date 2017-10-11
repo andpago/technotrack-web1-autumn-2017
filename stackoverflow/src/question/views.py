@@ -14,9 +14,8 @@ class QuestionDetailView(DetailView):
         context = super(QuestionDetailView, self).get_context_data(**kwargs)
         question = self.get_object()
 
-        context['text'] = question.text
         context['author'] = question.author
-        context['title'] = question.title
+        context['answers'] = question.answers.all
 
         return context
 
