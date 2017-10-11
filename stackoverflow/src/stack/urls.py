@@ -13,15 +13,16 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.contrib import admin
 from django.http import HttpResponse
 
 from django.shortcuts import render
 
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', lambda request: HttpResponse("This is the main page")),
     url(r'^user/(?P<username>\w+)$', lambda request, **kwargs: render(request, "core/user.html", kwargs)),
-    url(r'^question/(?P<question_id>\d+)$', lambda request, **kwargs: render(request, "core/question.html", kwargs)),
+    url(r'^question/', include('question.urls', namespace='question')),
 ]
