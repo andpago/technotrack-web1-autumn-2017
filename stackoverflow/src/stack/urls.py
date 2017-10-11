@@ -15,14 +15,13 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from django.http import HttpResponse
 
 from django.shortcuts import render
 
-from src.core.views import rootView
-
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', rootView),
+    url(r'^$', lambda request: HttpResponse("This is the main page")),
     url(r'^user/(?P<username>\w+)$', lambda request, **kwargs: render(request, "core/user.html", kwargs)),
     url(r'^question/(?P<question_id>\d+)$', lambda request, **kwargs: render(request, "core/question.html", kwargs)),
 ]
