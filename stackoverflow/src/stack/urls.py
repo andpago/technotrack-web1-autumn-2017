@@ -19,10 +19,11 @@ from django.http import HttpResponse
 
 from django.shortcuts import render
 
+from question.views import QuestionListView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', lambda request: HttpResponse("This is the main page")),
+    url(r'^$', QuestionListView.as_view()),
     url(r'^user/(?P<username>\w+)$', lambda request, **kwargs: render(request, "core/user.html", kwargs)),
     url(r'^question/', include('question.urls', namespace='question')),
 ]

@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
 # Create your views here.
-from django.views.generic import DetailView
+from django.views.generic import DetailView, ListView
 
 from .models import Question
 
@@ -19,3 +19,7 @@ class QuestionDetailView(DetailView):
         context['title'] = question.title
 
         return context
+
+class QuestionListView(ListView):
+    model = Question
+    template_name = 'question/question_list.html'

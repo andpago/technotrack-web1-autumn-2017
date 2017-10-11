@@ -1,0 +1,8 @@
+{% extends "core/base.html" %}
+
+{% block body %}
+    <h1>Questions</h1>
+    {% for question in object_list|slice:":20" %}
+        <a href="{% url 'question:question' question.pk %}">{{ question.title }}</a>
+    {% endfor %}
+{% endblock %}
