@@ -1,8 +1,19 @@
-from django.contrib.auth.base_user import AbstractBaseUser
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 # Create your models here.
+from django.utils import timezone
 
 
-class User(AbstractBaseUser):
-    pass
+class User(AbstractUser):
+    username = models.CharField(max_length=255, unique=True, null=False, editable=False, blank=False)
+    bio = models.TextField(blank=True, default='')
+    created = models.DateTimeField(editable=False)
+    modified = models.DateTimeField()
+
+    def save(self, *args, **kwargs):
+        """ On save, update timestamps """
+        if not self.id:
+            self.created = timezone.now()
+        self.modified = timezone.now()
+        return super(type(self), self).save(*args, **kwargs)
