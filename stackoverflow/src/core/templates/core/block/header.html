@@ -1,0 +1,8 @@
+<header>
+    <a href="/">main page</a>
+    <a href="{% url 'question:question_list' %}">questions</a>
+    {% if user.is_authenticated %}
+        <a href="{% url 'core:user' slug=user.username %}">profile</a>
+    {% endif %}
+</header>
+<hr>

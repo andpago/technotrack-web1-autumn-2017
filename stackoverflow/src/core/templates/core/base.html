@@ -19,7 +19,11 @@
         </style>
     </head>
     <body>
+        {% include 'core/block/header.html' %}
+
         {% block body %}
         {% endblock %}
+
+        {% include 'core/block/footer.html' %}
     </body>
 </html>
