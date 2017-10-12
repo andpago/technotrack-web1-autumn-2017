@@ -9,7 +9,7 @@ User = settings.AUTH_USER_MODEL
 
 
 class Answer(models.Model):
-    author = models.ForeignKey(User)
+    author = models.ForeignKey(User, related_name='answers')
     text = models.TextField()
     created = models.DateTimeField(editable=False)
     modified = models.DateTimeField()

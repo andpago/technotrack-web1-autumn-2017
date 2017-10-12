@@ -2,5 +2,22 @@
 
 {% block body %}
     <h1>{{ user.username }}</h1>
-    {{ user.username |capfirst }}'s bio: <p>{{ user.bio }}</p>
+
+    {% if user.bio %}
+        @{{ user.username }}'s bio: <p>{{ user.bio }}</p>
+    {% endif %}
+
+    <h3>{{ user.username }}'s Questions:</h3>
+    {% if user_questions %}
+        {% include 'question/block/question_list.html' with questions=user_questions %}
+    {% else %}
+        <p>no questions yet...</p>
+    {% endif %}
+
+    <h3>{{ user.username }}'s Answers:</h3>
+    {% if user_answers %}
+        {% include 'answer/block/answer_list.html' with answers=user_answers link_question=True %}
+    {% else %}
+        <p>no answers yet...</p>
+    {% endif %}
 {% endblock %}

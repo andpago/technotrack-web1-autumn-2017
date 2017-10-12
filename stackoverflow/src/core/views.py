@@ -12,6 +12,15 @@ class UserDetailView(DetailView):
     model = User
     template_name = 'core/user.html'
 
+    def get_context_data(self, **kwargs):
+        context = super(UserDetailView, self).get_context_data(**kwargs)
+        user = self.get_object()
+
+        context['user_questions'] = user.questions.all()[:5]
+        context['user_answers'] = user.answers.all()[:5]
+
+        return context
+
 
 class HomeView(View):
     def get(self, request, **kwargs):

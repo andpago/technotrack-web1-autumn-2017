@@ -10,7 +10,7 @@ User = settings.AUTH_USER_MODEL
 
 
 class Question(models.Model):
-    author = models.ForeignKey(User)
+    author = models.ForeignKey(User, related_name='questions')
     title = models.CharField(max_length=255, null=False)
     text = models.TextField()
     category = models.ForeignKey(QuestionCategory, related_name='questions', null=True)

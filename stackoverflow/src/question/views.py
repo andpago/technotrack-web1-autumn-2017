@@ -15,7 +15,7 @@ class QuestionDetailView(DetailView):
         question = self.get_object()
 
         context['author'] = question.author
-        context['answers'] = question.answers.all
+        context['answers'] = question.answers.all()
 
         return context
 
