@@ -2,6 +2,7 @@ from django.db import models
 from django.conf import settings
 from django.utils import timezone
 
+from category.models import QuestionCategory
 
 User = settings.AUTH_USER_MODEL
 
@@ -12,6 +13,8 @@ class Question(models.Model):
     author = models.ForeignKey(User)
     title = models.CharField(max_length=255, null=False)
     text = models.TextField()
+    category = models.ForeignKey(QuestionCategory, related_name='questions', null=True)
+
     created = models.DateTimeField(editable=False)
     modified = models.DateTimeField()
 
