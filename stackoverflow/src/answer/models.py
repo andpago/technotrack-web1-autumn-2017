@@ -21,3 +21,10 @@ class Answer(models.Model):
             self.created = timezone.now()
         self.modified = timezone.now()
         return super(type(self), self).save(*args, **kwargs)
+
+    def __str__(self):
+        return 'Answer #{} by @{}: "{}"'.format(self.pk, self.author.username, self.text[:20])
+
+    class Meta:
+        verbose_name = "answer"
+        verbose_name_plural = "answers"

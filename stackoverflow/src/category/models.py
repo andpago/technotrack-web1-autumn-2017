@@ -19,4 +19,6 @@ class BaseCategory(models.Model):
 
 
 class QuestionCategory(BaseCategory):
-    pass
+    class Meta:
+        verbose_name = "question category"
+        verbose_name_plural = "question categories"
