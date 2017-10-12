@@ -19,11 +19,11 @@ from django.http import HttpResponse
 
 from django.shortcuts import render
 
-from question.views import QuestionListView
+from core.views import HomeView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', QuestionListView.as_view()),
+    url(r'^$', HomeView.as_view()),
     url(r'^question/', include('question.urls', namespace='question')),
     url(r'^', include('core.urls', namespace='core')),
 ]

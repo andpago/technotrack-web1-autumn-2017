@@ -1,0 +1,5 @@
+<div>
+{% for question in questions|slice:":20" %}
+    {% include 'question/block/question.html' with question=question author=question.author link=True %}
+{% endfor %}
+</div>
