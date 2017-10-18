@@ -1,8 +1,9 @@
+{% load linkto %}
 <div>
-    <a href="{% url 'core:user' answer.author.slug %}">@{{ answer.author.username }}</a>: {{ answer.text|truncatewords:10 }}
+    {% linkto answer.author %}: {{ answer.text|truncatewords:10 }}
     {% if link_question %}
         <p>
-            In response to: <a href="{% url 'question:question' pk=answer.question.pk %}">{{ answer.question.title }}</a>
+            In response to: {% linkto answer.question %}
         </p>
     {% endif %}
 </div>

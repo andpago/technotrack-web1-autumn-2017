@@ -1,9 +1,9 @@
 {% extends "core/base.html" %}
 
 {% block body %}
-    {% include 'question/block/question.html' with question=question author=author %}
+    {% include 'question/block/question.html' with question=question %}
     Answers:
-    {% for ans in answers %}
-        {% include 'answer/block/answer.html' with answer=ans %}
+    {% for answer in question.answers.all %}
+        {% include 'answer/block/answer.html' with answer=answer %}
     {% endfor %}
 {% endblock %}

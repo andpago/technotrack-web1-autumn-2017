@@ -1,4 +1,5 @@
 {% extends "core/base.html" %}
+{% load count_objects %}
 
 {% block title %}
 Main page
@@ -6,6 +7,11 @@ Main page
 
 {% block body %}
     <h1>Main page</h1>
+    {% with 'User Answer Question QuestionCategory' as list %}
+        {% for item in list.split %}
+            <p>{{ item }} number: {% count_objects item %}</p>
+        {% endfor %}
+    {% endwith %}
     <div class="row">
         <div>
             <a href="{% url 'question:question_list' %}"><h3>Questions:</h3></a>

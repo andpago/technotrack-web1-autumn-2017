@@ -5,6 +5,7 @@ from django.views.generic import DetailView
 
 from answer.models import Answer
 from question.models import Question
+from category.models import QuestionCategory
 from .models import User
 
 
@@ -31,6 +32,11 @@ class HomeView(View):
 
         context['questions'] = Question.objects.all()[:5]
         context['answers'] = Answer.objects.all()[:5]
+
+        context['cat_count'] = QuestionCategory.objects.count()
+        context['qsn_count'] = Question.objects.count()
+        context['ans_count'] = Answer.objects.count()
+        context['usr_count'] = User.objects.count()
 
         kwargs['context'] = context
 
