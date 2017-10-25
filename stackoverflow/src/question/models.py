@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from django.urls import reverse, reverse_lazy
 from django.utils import timezone
 
 from category.models import QuestionCategory
@@ -17,6 +18,9 @@ class Question(models.Model):
 
     created = models.DateTimeField(editable=False)
     modified = models.DateTimeField()
+
+    def get_absolute_url(self):
+        return reverse_lazy('question:question', kwargs={'pk': self.id})
 
     def save(self, *args, **kwargs):
         """ On save, update timestamps """
