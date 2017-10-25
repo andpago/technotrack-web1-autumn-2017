@@ -13,17 +13,17 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
+from core.views import HomeView, RegisterView
 from django.conf.urls import url, include
 from django.contrib import admin
-from django.http import HttpResponse
-
-from django.shortcuts import render
-
-from core.views import HomeView
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', HomeView.as_view()),
+    url(r'^login/$', auth_views.LoginView.as_view(template_name='core/login.html'), name='login'),
+    url(r'^register/$', RegisterView.as_view(), name='register'),
+    url(r'^logout/$', auth_views.LogoutView.as_view(), name='logout'),
     url(r'^question/', include('question.urls', namespace='question')),
     url(r'^', include('core.urls', namespace='core')),
 ]

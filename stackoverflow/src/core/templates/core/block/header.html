@@ -2,7 +2,11 @@
     <a href="/">main page</a>
     <a href="{% url 'question:question_list' %}">questions</a>
     {% if user.is_authenticated %}
-        <a href="{% url 'core:user' slug=user.username %}">profile</a>
+        <a href="{% url 'core:user' slug=user.username %}">logged in as {{ user.username }}</a>
+        <a href="{% url 'logout' %}">log out</a>
+    {% else %}
+        <a href="{% url 'login' %}">log in</a>
     {% endif %}
+    <a href="{% url 'register' %}">sign up</a>
 </header>
 <hr>
