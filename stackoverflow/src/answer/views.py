@@ -1,11 +1,10 @@
 from django import forms
+from django.contrib.auth.decorators import login_required
 from django.http import Http404, HttpResponseBadRequest
-from django.shortcuts import redirect
-from django.urls import reverse_lazy, reverse
-from django.views.generic import CreateView, FormView
+from django.utils.decorators import method_decorator
+from django.views.generic import CreateView
 
 from .models import Answer
-from question.models import Question
 
 
 class AnswerCreateForm(forms.ModelForm):
@@ -15,6 +14,7 @@ class AnswerCreateForm(forms.ModelForm):
         widgets = {'question': forms.HiddenInput}
 
 
+@method_decorator(login_required, name='dispatch')
 class CreateAnswerView(CreateView):
     form_class = AnswerCreateForm
 

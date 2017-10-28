@@ -1,9 +1,11 @@
 from django import forms
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
 from django.shortcuts import render
 
 # Create your views here.
 from django.urls import reverse_lazy
+from django.utils.decorators import method_decorator
 from django.views.generic import DetailView, ListView, CreateView, FormView, UpdateView
 
 from answer.views import AnswerCreateForm
@@ -31,9 +33,10 @@ class QuestionListView(ListView):
 class QuestionCreateForm(forms.ModelForm):
     class Meta:
         model = Question
-        fields = ['title', 'text']
+        fields = ['title', 'text', 'category']
 
 
+@method_decorator(login_required, name='dispatch')
 class QuestionCreateView(CreateView):
     template_name = 'question/question_create.html'
     form_class = QuestionCreateForm
@@ -55,6 +58,7 @@ def author_only(f):
     return res
 
 
+@method_decorator(login_required, name='dispatch')
 class QuestionEditView(UpdateView):
     template_name = 'question/question_edit.html'
     model = Question

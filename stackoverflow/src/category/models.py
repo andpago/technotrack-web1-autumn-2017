@@ -14,7 +14,7 @@ class BaseCategory(models.Model):
         abstract = True
 
     def __str__(self):
-        return "<{}: name={}>".format(type(self).__name__, self.name)
+        return self.name
 
     def save(self, *args, **kwargs):
         """ On save, update timestamps """
