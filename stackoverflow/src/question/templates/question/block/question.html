@@ -8,5 +8,9 @@
         <h1>{{ question.title }}</h1>
     {% endif %}
 
+    {% if question.author == user %}
+        <a href="{% url 'question:edit_question' pk=question.id %}">edit</a>
+    {% endif %}
+
     {{ question.text|linebreaks|truncatechars:1000 }}
 </div>
