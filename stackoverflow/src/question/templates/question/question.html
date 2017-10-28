@@ -6,4 +6,10 @@
     {% for answer in question.answers.all %}
         {% include 'answer/block/answer.html' with answer=answer %}
     {% endfor %}
+    <hr>
+    <form method="POST" action="{% url 'question:create_answer' pk=question.id %}">
+        {% csrf_token %}
+        {{ answer_form.as_p }}
+        <input type="submit" value="Answer">
+    </form>
 {% endblock %}

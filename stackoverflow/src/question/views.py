@@ -5,6 +5,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, ListView, CreateView, FormView
 
+from answer.views import AnswerCreateForm
 from .models import Question
 
 
@@ -13,8 +14,10 @@ class QuestionDetailView(DetailView):
     template_name = 'question/question.html'
 
     def get_context_data(self, **kwargs):
+        answer_form = AnswerCreateForm(initial={'question': self.get_object()})
+
         context = super(QuestionDetailView, self).get_context_data(**kwargs)
-        question = self.get_object()
+        context['answer_form'] = answer_form
 
         return context
 

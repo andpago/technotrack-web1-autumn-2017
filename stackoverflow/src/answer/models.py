@@ -1,6 +1,7 @@
 from django.db import models
 
 # Create your models here.
+from django.urls import reverse
 from django.utils import timezone
 from django.conf import settings
 from question.models import Question
@@ -24,6 +25,9 @@ class Answer(models.Model):
 
     def __str__(self):
         return 'Answer #{} by @{}: "{}"'.format(self.pk, self.author.username, self.text[:20])
+
+    def get_absolute_url(self):
+        return reverse('question:question', kwargs={'pk': self.question_id})
 
     class Meta:
         verbose_name = "answer"
