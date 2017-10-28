@@ -58,7 +58,7 @@ def author_only(f):
 class QuestionEditView(UpdateView):
     template_name = 'question/question_edit.html'
     model = Question
-    fields = ['title', 'text']
+    fields = ['title', 'text', 'category']
 
     @author_only
     def get(self, *args, **kwargs):

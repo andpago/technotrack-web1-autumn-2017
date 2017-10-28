@@ -2,6 +2,7 @@
 
 <div>
 <p>Author: {% linkto question.author %}</p>
+<p>Category: {{ question.category.name }}</p>
     {% if link %}
         {% linkto question %}
     {% else %}
