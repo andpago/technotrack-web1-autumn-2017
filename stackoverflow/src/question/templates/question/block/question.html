@@ -3,6 +3,15 @@
 <div>
 <p>Author: {% linkto question.author %}</p>
 <p>Category: {{ question.category.name }}</p>
+<p>Number of likes: {{ question.likes.count }}
+    {% if user.is_authenticated %}
+        <form action="{% url 'like:like_question' %}" method="POST">
+            {% csrf_token %}
+            <input type="hidden" value="{{ question.id }}" name="question_id">
+            <input type="submit" value="Like!">
+        </form>
+    {% endif %}
+</p>
     {% if link %}
         {% linkto question %}
     {% else %}
