@@ -6,4 +6,12 @@
             In response to: {% linkto answer.question %}
         </p>
     {% endif %}
+    <p>Number of likes: {{ answer.likes.count }}
+    {% if user.is_authenticated %}
+        <form action="{% url 'like:like_answer' %}" method="POST">
+            {% csrf_token %}
+            <input type="hidden" value="{{ answer.id }}" name="answer_id">
+            <input type="submit" value="Like!">
+        </form>
+    {% endif %}
 </div>

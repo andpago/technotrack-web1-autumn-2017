@@ -4,7 +4,9 @@ from django.http import HttpResponseBadRequest
 from django.shortcuts import render, redirect
 from django.urls import reverse
 
-from .models import QuestionLike
+from answer.models import Answer
+from .models import QuestionLike, AnswerLike
+
 
 # Create your views here.
 
@@ -33,3 +35,29 @@ def like_question(request, *args, **kwargs):
 
         return redirect(reverse('question:question', kwargs={'pk': question_id}))
 
+
+@login_required
+def like_answer(request, *args, **kwargs):
+    if request.method != "POST":
+        return HttpResponseBadRequest('<h1>Method ' + request.method + ' is unsupported</h1>')
+    else:
+        user = request.user
+        answer_id = request.POST.get('answer_id', None)
+
+        if answer_id is None:
+            return HttpResponseBadRequest('<h1>Bad request: no answer specified</h1>')
+
+        try:
+            old_like = AnswerLike.objects.get(author=user, answer_id=answer_id)
+            old_like.delete()
+        except AnswerLike.DoesNotExist:
+            like = AnswerLike(author=user, answer_id=answer_id)
+            like.save()
+        except AnswerLike.MultipleObjectsReturned:
+            # this is very bad :(
+            for like in AnswerLike.objects.filter(author=user, answer_id=answer_id).all():
+                like.delete()
+
+        question_id = Answer.objects.get(id=answer_id).question_id
+
+        return redirect(reverse('question:question', kwargs={'pk': question_id}))
