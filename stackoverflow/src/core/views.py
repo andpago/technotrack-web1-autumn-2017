@@ -1,6 +1,7 @@
 # Create your views here.
 from django import forms
 from django.core.exceptions import ValidationError
+from django.http import HttpResponseForbidden
 from django.shortcuts import render, redirect
 from django.views import View
 from django.views.generic import DetailView, FormView
@@ -10,6 +11,51 @@ from answer.models import Answer
 from question.models import Question
 from category.models import QuestionCategory
 from .models import User
+
+
+class SearchForm(forms.Form):
+    search = forms.CharField(required=False)
+
+
+def has_search_form(Class):
+    class NewClass(Class):
+        def get_queryset(self):
+            print(self.__class__)
+            q = super(self.__class__, self).get_queryset()
+            self.search_form = SearchForm(self.request.GET)
+
+            if self.search_form.is_valid():
+                if self.search_form.cleaned_data['search']:
+                    q = q.filter(text__contains=self.search_form.cleaned_data['search'])
+
+            return q
+
+        def get_context_data(self, **kwargs):
+            context = super(self.__class__, self).get_context_data(**kwargs)
+            context['search_form'] = self.search_form
+
+            return context
+    NewClass.__name__ = Class.__name__
+
+    return NewClass
+
+
+def author_only(f):
+    def res(self, *args, **kwargs):
+        if self.get_object().author != self.request.user:
+            return HttpResponseForbidden("<h1>You cannot edit this entry</h1>")
+        else:
+            return f(self, *args, **kwargs)
+    return res
+
+
+def author_only_methods(*args):
+    def decorator(Class):
+        for arg in args:
+            setattr(Class, arg, author_only(getattr(Class, arg)))
+
+        return Class
+    return decorator
 
 
 class UserDetailView(DetailView):

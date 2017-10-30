@@ -6,4 +6,8 @@
             In response to: {% linkto answer.question %}
         </p>
     {% endif %}
+
+    {% if answer.author == user %}
+        <a href="{% url 'answer:edit_answer' pk=answer.id %}">edit</a>
+    {% endif %}
 </div>
