@@ -25,6 +25,34 @@ class QuestionDetailView(DetailView):
         return context
 
 
+class SearchForm(forms.Form):
+    search = forms.CharField(required=False)
+
+
+def has_search_form(Class):
+    class NewClass(Class):
+        def get_queryset(self):
+            print(self.__class__)
+            q = super(self.__class__, self).get_queryset()
+            self.search_form = SearchForm(self.request.GET)
+
+            if self.search_form.is_valid():
+                if self.search_form.cleaned_data['search']:
+                    q = q.filter(text__contains=self.search_form.cleaned_data['search'])
+
+            return q
+
+        def get_context_data(self, **kwargs):
+            context = super(self.__class__, self).get_context_data(**kwargs)
+            context['search_form'] = self.search_form
+
+            return context
+    NewClass.__name__ = Class.__name__
+
+    return NewClass
+
+
+@has_search_form
 class QuestionListView(ListView):
     model = Question
     template_name = 'question/question_list.html'
@@ -58,16 +86,18 @@ def author_only(f):
     return res
 
 
+def author_only_methods(*args):
+    def decorator(Class):
+        for arg in args:
+            setattr(Class, arg, author_only(getattr(Class, arg)))
+
+        return Class
+    return decorator
+
+
+@author_only_methods('get', 'post')
 @method_decorator(login_required, name='dispatch')
 class QuestionEditView(UpdateView):
     template_name = 'question/question_edit.html'
     model = Question
     fields = ['title', 'text', 'category']
-
-    @author_only
-    def get(self, *args, **kwargs):
-        return super(QuestionEditView, self).get(*args, **kwargs)
-
-    @author_only
-    def post(self, *args, **kwargs):
-        return super(QuestionEditView, self).post(*args, **kwargs)
