@@ -1,4 +1,5 @@
 {% load linkto %}
+{% load martortags %}
 
 <div>
 <p>Author: {% linkto question.author %}</p>
@@ -13,5 +14,5 @@
         <a href="{% url 'question:edit_question' pk=question.id %}">edit</a>
     {% endif %}
 
-    {{ question.text|linebreaks|truncatechars:1000 }}
+    {{ question.text|safe_markdown|truncatechars:1000 }}
 </div>
