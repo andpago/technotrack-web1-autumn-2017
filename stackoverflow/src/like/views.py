@@ -1,63 +1,45 @@
-from django.contrib.auth.decorators import login_required
-from django.db.models import Model
-from django.http import HttpResponseBadRequest
-from django.shortcuts import render, redirect
-from django.urls import reverse
-
 from answer.models import Answer
-from .models import QuestionLike, AnswerLike
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseBadRequest
+from django.shortcuts import redirect
+from question.models import Question
 
 
-# Create your views here.
+def get_like_view(Class):
+    name = Class.__name__.lower()
 
+    @login_required
+    def like_function(request, *args, **kwargs):
+        if request.method != "POST":
+            return HttpResponseBadRequest('<h1>Method ' + request.method + ' is unsupported</h1>')
+        else:
+            user = request.user
+            id = request.POST.get(name + '_id', None)
+            LikeClass = globals()[Class.__name__ + 'Like']
 
-@login_required
-def like_question(request, *args, **kwargs):
-    if request.method != "POST":
-        return HttpResponseBadRequest('<h1>Method ' + request.method + ' is unsupported</h1>')
-    else:
-        user = request.user
-        question_id = request.POST.get('question_id', None)
+            if id is None:
+                return HttpResponseBadRequest('<h1>Bad request: no object specified</h1>')
 
-        if question_id is None:
-            return HttpResponseBadRequest('<h1>Bad request: no question specified</h1>')
+            try:
+                obj = Class.objects.get(id=id)
+            except Class.DoesNotExist:
+                return HttpResponseBadRequest('<h1>Bad request: object does not exist</h1>')
 
-        try:
-            old_like = QuestionLike.objects.get(author=user, question_id=question_id)
-            old_like.delete()
-        except QuestionLike.DoesNotExist:
-            like = QuestionLike(author=user, question_id=question_id)
-            like.save()
-        except QuestionLike.MultipleObjectsReturned:
-            # this is very bad :(
-            for like in QuestionLike.objects.filter(author=user, question_id=question_id).all():
-                like.delete()
+            try:
+                old_like = LikeClass.objects.get(author=user, **{name + '_id': id})
+                old_like.delete()
+                return redirect(obj.get_absolute_url())
+            except LikeClass.DoesNotExist:
+                like = LikeClass(author=user, **{name + '_id': id})
+                like.save()
+                return redirect(obj.get_absolute_url())
+            except LikeClass.MultipleObjectsReturned:
+                # this is very bad :(
+                for like in LikeClass.objects.filter(author=user, **{name + '_id': id}).all():
+                    like.delete()
 
-        return redirect(reverse('question:question', kwargs={'pk': question_id}))
+                return redirect('/')
+    return like_function
 
-
-@login_required
-def like_answer(request, *args, **kwargs):
-    if request.method != "POST":
-        return HttpResponseBadRequest('<h1>Method ' + request.method + ' is unsupported</h1>')
-    else:
-        user = request.user
-        answer_id = request.POST.get('answer_id', None)
-
-        if answer_id is None:
-            return HttpResponseBadRequest('<h1>Bad request: no answer specified</h1>')
-
-        try:
-            old_like = AnswerLike.objects.get(author=user, answer_id=answer_id)
-            old_like.delete()
-        except AnswerLike.DoesNotExist:
-            like = AnswerLike(author=user, answer_id=answer_id)
-            like.save()
-        except AnswerLike.MultipleObjectsReturned:
-            # this is very bad :(
-            for like in AnswerLike.objects.filter(author=user, answer_id=answer_id).all():
-                like.delete()
-
-        question_id = Answer.objects.get(id=answer_id).question_id
-
-        return redirect(reverse('question:question', kwargs={'pk': question_id}))
+like_answer = get_like_view(Answer)
+like_question = get_like_view(Question)
