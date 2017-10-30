@@ -4,8 +4,10 @@ from django.http import HttpResponseBadRequest
 from django.shortcuts import redirect
 from question.models import Question
 
+from .models import QuestionLike, AnswerLike
 
-def get_like_view(Class):
+
+def get_like_view(Class, LikeClass):
     name = Class.__name__.lower()
 
     @login_required
@@ -15,7 +17,6 @@ def get_like_view(Class):
         else:
             user = request.user
             id = request.POST.get(name + '_id', None)
-            LikeClass = globals()[Class.__name__ + 'Like']
 
             if id is None:
                 return HttpResponseBadRequest('<h1>Bad request: no object specified</h1>')
@@ -41,5 +42,5 @@ def get_like_view(Class):
                 return redirect('/')
     return like_function
 
-like_answer = get_like_view(Answer)
-like_question = get_like_view(Question)
+like_answer = get_like_view(Answer, AnswerLike)
+like_question = get_like_view(Question, QuestionLike)
