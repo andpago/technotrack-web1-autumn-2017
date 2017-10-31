@@ -14,5 +14,9 @@
         <a href="{% url 'question:edit_question' pk=question.id %}">edit</a>
     {% endif %}
 
-    {{ question.text|safe_markdown|truncatechars:1000 }}
+    {% if full_text %}
+        {{ question.text|safe_markdown }}
+    {% else %}
+        {{ question.text|safe_markdown|truncatechars:1000 }}
+    {% endif %}
 </div>
