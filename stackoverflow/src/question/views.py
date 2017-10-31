@@ -26,7 +26,17 @@ class QuestionDetailView(DetailView):
 
         return context
 
-@has_search_form
+
+@has_search_form(sort_choices=[
+            ('title', 'title asc'),
+            ('-title', 'title desc'),
+            ('text', 'text asc'),
+            ('-text', 'text desc'),
+            ('author', 'author'),
+            ('-author', 'author desc'),
+            ('category', 'category asc'),
+            ('-category', 'category desc')
+])
 class QuestionListView(ListView):
     model = Question
     template_name = 'question/question_list.html'

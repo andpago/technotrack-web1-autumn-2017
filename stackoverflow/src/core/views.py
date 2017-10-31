@@ -13,31 +13,36 @@ from category.models import QuestionCategory
 from .models import User
 
 
-class SearchForm(forms.Form):
-    search = forms.CharField(required=False)
+def has_search_form(sort_choices):
+    class SearchForm(forms.Form):
+        search = forms.CharField(required=False)
+        sort = forms.ChoiceField(choices=sort_choices, required=False)
 
+    def decorator(Class: type):
+        class NewClass(Class):
+            def get_queryset(self):
+                q = super(self.__class__, self).get_queryset()
+                self.search_form = SearchForm(self.request.GET)
 
-def has_search_form(Class):
-    class NewClass(Class):
-        def get_queryset(self):
-            print(self.__class__)
-            q = super(self.__class__, self).get_queryset()
-            self.search_form = SearchForm(self.request.GET)
+                if self.search_form.is_valid():
+                    if self.search_form.cleaned_data['search']:
+                        q = q.filter(text__contains=self.search_form.cleaned_data['search'])
 
-            if self.search_form.is_valid():
-                if self.search_form.cleaned_data['search']:
-                    q = q.filter(text__contains=self.search_form.cleaned_data['search'])
+                    if self.search_form.cleaned_data['sort']:
+                        q = q.order_by(self.search_form.cleaned_data['sort'])
 
-            return q
+                return q
 
-        def get_context_data(self, **kwargs):
-            context = super(self.__class__, self).get_context_data(**kwargs)
-            context['search_form'] = self.search_form
+            def get_context_data(self, **kwargs):
+                context = super(self.__class__, self).get_context_data(**kwargs)
+                context['search_form'] = self.search_form
 
-            return context
-    NewClass.__name__ = Class.__name__
+                return context
+        NewClass.__name__ = Class.__name__
 
-    return NewClass
+        return NewClass
+
+    return decorator
 
 
 def author_only(f):
@@ -115,7 +120,5 @@ class RegisterView(FormView):
             return redirect(to='/register?bad=password')
         user.set_password(form.cleaned_data['password'])
         user.save()
-
-        print(user)
 
         return super(RegisterView, self).form_valid(form)
