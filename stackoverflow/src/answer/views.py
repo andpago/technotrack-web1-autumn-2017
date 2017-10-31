@@ -2,8 +2,9 @@ from django import forms
 from django.contrib.auth.decorators import login_required
 from django.http import Http404, HttpResponseBadRequest
 from django.utils.decorators import method_decorator
-from django.views.generic import CreateView
+from django.views.generic import CreateView, UpdateView
 
+from core.views import author_only_methods
 from .models import Answer
 
 
@@ -30,3 +31,11 @@ class CreateAnswerView(CreateView):
 
     def form_invalid(self, form):
         return HttpResponseBadRequest("<h1>Bad request</h1>")
+
+
+@author_only_methods('get', 'post')
+@method_decorator(login_required, name='dispatch')
+class AnswerEditView(UpdateView):
+    template_name = 'answer/answer_edit.html'
+    model = Answer
+    fields = ['text']

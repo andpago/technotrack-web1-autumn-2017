@@ -9,6 +9,8 @@ from django.utils.decorators import method_decorator
 from django.views.generic import DetailView, ListView, CreateView, FormView, UpdateView
 
 from answer.views import AnswerCreateForm
+
+from core.views import has_search_form, author_only_methods
 from .models import Question
 
 
@@ -25,6 +27,16 @@ class QuestionDetailView(DetailView):
         return context
 
 
+@has_search_form(sort_choices=[
+            ('title', 'title asc'),
+            ('-title', 'title desc'),
+            ('text', 'text asc'),
+            ('-text', 'text desc'),
+            ('author', 'author'),
+            ('-author', 'author desc'),
+            ('category', 'category asc'),
+            ('-category', 'category desc')
+])
 class QuestionListView(ListView):
     model = Question
     template_name = 'question/question_list.html'
@@ -49,25 +61,9 @@ class QuestionCreateView(CreateView):
         return super(QuestionCreateView, self).form_valid(form)
 
 
-def author_only(f):
-    def res(self, *args, **kwargs):
-        if self.get_object().author != self.request.user:
-            return HttpResponseForbidden("<h1>You cannot edit this entry</h1>")
-        else:
-            return f(self, *args, **kwargs)
-    return res
-
-
+@author_only_methods('get', 'post')
 @method_decorator(login_required, name='dispatch')
 class QuestionEditView(UpdateView):
     template_name = 'question/question_edit.html'
     model = Question
     fields = ['title', 'text', 'category']
-
-    @author_only
-    def get(self, *args, **kwargs):
-        return super(QuestionEditView, self).get(*args, **kwargs)
-
-    @author_only
-    def post(self, *args, **kwargs):
-        return super(QuestionEditView, self).post(*args, **kwargs)

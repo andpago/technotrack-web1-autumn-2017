@@ -2,5 +2,9 @@
 
 {% block body %}
     <h1>Questions</h1>
+    <form method="GET">
+        {{ search_form }}
+        <input type="submit" value="Search">
+    </form>
     {% include 'question/block/question_list.html' with questions=object_list %}
 {% endblock %}

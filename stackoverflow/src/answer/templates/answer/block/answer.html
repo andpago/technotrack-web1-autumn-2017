@@ -1,6 +1,11 @@
 {% load linkto %}
 <div>
-    {% linkto answer.author %}: {{ answer.text|truncatewords:10 }}
+    {% linkto answer.author %}:
+    {% if full_text %}
+        <p>{{ answer.text|linebreaks }}</p>
+    {% else %}
+        <p>{{ answer.text|truncatewords:10 }}</p>
+    {% endif %}
     {% if link_question %}
         <p>
             In response to: {% linkto answer.question %}
@@ -13,5 +18,9 @@
             <input type="hidden" value="{{ answer.id }}" name="answer_id">
             <input type="submit" value="Like!">
         </form>
+    {% endif %}
+
+    {% if answer.author == user %}
+        <a href="{% url 'answer:edit_answer' pk=answer.id %}">edit</a>
     {% endif %}
 </div>
