@@ -25,6 +25,5 @@ urlpatterns = [
     url(r'^register/$', RegisterView.as_view(), name='register'),
     url(r'^logout/$', auth_views.LogoutView.as_view(), name='logout'),
     url(r'^question/', include('question.urls', namespace='question')),
-    url(r'^answer/', include('answer.urls', namespace='answer')),
     url(r'^', include('core.urls', namespace='core')),
 ]

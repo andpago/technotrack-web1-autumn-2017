@@ -1,6 +1,5 @@
 from django.contrib.auth import get_user_model
-from question.models import Question
-from answer.models import Answer
+from question.models import Question, Answer
 from category.models import QuestionCategory
 from django.template import Library
 

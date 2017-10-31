@@ -7,8 +7,7 @@ from django.views import View
 from django.views.generic import DetailView, FormView
 from django.contrib.auth.password_validation import validate_password
 
-from answer.models import Answer
-from question.models import Question
+from question.models import Question, Answer
 from category.models import QuestionCategory
 from .models import User
 
