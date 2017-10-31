@@ -1,6 +1,11 @@
 {% load linkto %}
 <div>
-    {% linkto answer.author %}: {{ answer.text|truncatewords:10 }}
+    {% linkto answer.author %}:
+    {% if full_text %}
+        <p>{{ answer.text|linebreaks }}</p>
+    {% else %}
+        <p>{{ answer.text|truncatewords:10 }}</p>
+    {% endif %}
     {% if link_question %}
         <p>
             In response to: {% linkto answer.question %}
