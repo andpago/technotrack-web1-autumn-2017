@@ -105,3 +105,6 @@ ENV/
 
 # KDE
 .directory
+
+# User-added django stuff
+collected_static
