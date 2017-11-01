@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseForbidden
+from django.http import HttpResponseForbidden, HttpResponseBadRequest, Http404
 from django.shortcuts import render
 
 # Create your views here.
@@ -8,10 +8,8 @@ from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic import DetailView, ListView, CreateView, FormView, UpdateView
 
-from answer.views import AnswerCreateForm
-
 from core.views import has_search_form, author_only_methods
-from .models import Question
+from .models import Question, Answer
 
 
 class QuestionDetailView(DetailView):
@@ -67,3 +65,37 @@ class QuestionEditView(UpdateView):
     template_name = 'question/question_edit.html'
     model = Question
     fields = ['title', 'text', 'category']
+
+
+
+class AnswerCreateForm(forms.ModelForm):
+    class Meta:
+        model = Answer
+        fields = ['text', 'question']
+        widgets = {'question': forms.HiddenInput}
+
+
+@method_decorator(login_required, name='dispatch')
+class CreateAnswerView(CreateView):
+    form_class = AnswerCreateForm
+
+    def get(self, request, *args, **kwargs):
+        raise Http404
+
+    def form_valid(self, form):
+        answer = form.save(commit=False)
+        answer.author = self.request.user
+        answer.save()
+
+        return super(CreateAnswerView, self).form_valid(form)
+
+    def form_invalid(self, form):
+        return HttpResponseBadRequest("<h1>Bad request</h1>")
+
+
+@author_only_methods('get', 'post')
+@method_decorator(login_required, name='dispatch')
+class AnswerEditView(UpdateView):
+    template_name = 'answer/answer_edit.html'
+    model = Answer
+    fields = ['text']

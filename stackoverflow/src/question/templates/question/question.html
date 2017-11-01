@@ -4,7 +4,7 @@
     {% include 'question/block/question.html' with question=question  full_text=True %}
     Answers:
     {% for answer in question.answers.all %}
-        {% include 'answer/block/answer.html' with answer=answer full_text=True %}
+        {% include 'question/block/answer.html' with answer=answer full_text=True %}
     {% endfor %}
     <hr>
     <form method="POST" action="{% url 'question:create_answer' pk=question.id %}">
