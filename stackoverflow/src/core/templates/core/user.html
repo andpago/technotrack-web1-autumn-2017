@@ -16,7 +16,7 @@
 
     <h3>{{ user.username }}'s Answers:</h3>
     {% if user_answers %}
-        {% include 'answer/block/answer_list.html' with answers=user_answers link_question=True %}
+        {% include 'question/block/answer_list.html' with answers=user_answers link_question=True %}
     {% else %}
         <p>no answers yet...</p>
     {% endif %}

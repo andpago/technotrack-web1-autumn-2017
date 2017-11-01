@@ -8,12 +8,14 @@ Main page
 {% block body %}
     <h1>Main page</h1>
     <div class="row">
-        <div>
-            <a href="{% url 'question:question_list' %}"><h3>Questions:</h3></a>
+        <div class="col-md-6 col-sm-12">
+            <a href="{% url 'question:question_list' %}">
+                <h3>Questions:</h3>
+            </a>
             {% include 'question/block/question_list.html' with questions=questions %}
         </div>
 
-        <div>
+        <div class="col-md-6 col-sm-12">
             <h3>Answers:</h3>
             {% include 'question/block/answer_list.html' with answers=answers link_question=True %}
         </div>
