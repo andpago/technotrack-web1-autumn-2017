@@ -1,13 +1,14 @@
 {% extends "core/base.html" %}
 
 {% block body %}
-    <h1>{{ user.username }}</h1>
+    <h1 class="header-main">{{ user.username }}</h1>
 
     {% if user.bio %}
         @{{ user.username }}'s bio: <p>{{ user.bio }}</p>
     {% endif %}
 
-    <h3>{{ user.username }}'s Questions:</h3>
+    <h3 class="header-secondary">{{ user.username }}'s Questions:</h3>
+
     {% if user_questions %}
         {% include 'question/block/question_list.html' with questions=user_questions %}
     {% else %}

@@ -1,21 +1,26 @@
 {% load linkto %}
 
-<div>
-<p>Author: {% linkto question.author %}</p>
-<p>Category: {{ question.category.name }}</p>
-    {% if link %}
-        {% linkto question %}
-    {% else %}
-        <h1>{{ question.title }}</h1>
-    {% endif %}
+<div class="card">
+    <div class="card-header">
+        <ul class="nav nav-pills card-header-pills">
+            <li class="nav-item">
+                {% linkto question class='nav-link' %}
+            </li>
+        </ul>
+    </div>
+    <div class="card-block">
+        <p>Author: {% linkto question.author %}</p>
+        <p>Category: {{ question.category.name }}</p>
 
-    {% if question.author == user %}
-        <a href="{% url 'question:edit_question' pk=question.id %}">edit</a>
-    {% endif %}
 
-    {% if full_text %}
-        {{ question.text|linebreaks }}
-    {% else %}
-        {{ question.text|linebreaks|truncatechars:1000 }}
-    {% endif %}
+        {% if question.author == user %}
+            <a href="{% url 'question:edit_question' pk=question.id %}">edit</a>
+        {% endif %}
+
+        {% if full_text %}
+            {{ question.text|linebreaks }}
+        {% else %}
+            {{ question.text|linebreaks|truncatechars:1000 }}
+        {% endif %}
+    </div>
 </div>

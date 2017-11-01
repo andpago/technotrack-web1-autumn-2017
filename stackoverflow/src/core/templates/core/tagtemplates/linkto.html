@@ -1,0 +1,9 @@
+{% if element %}
+    <a href="{{ url }}">
+        <{{ element }} class="{{ class }}">
+            {{ text }}
+        </{{ element }}>
+    </a>
+{% else %}
+    <a href="{{ url }}" {% if class %}class="{{ class }}"{% endif %}>{{ text }}</a>
+{% endif %}

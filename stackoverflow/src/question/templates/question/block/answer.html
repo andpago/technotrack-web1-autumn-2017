@@ -1,18 +1,18 @@
 {% load linkto %}
-<div>
-    {% linkto answer.author %}:
-    {% if full_text %}
-        <p>{{ answer.text|linebreaks }}</p>
-    {% else %}
-        <p>{{ answer.text|truncatewords:10 }}</p>
-    {% endif %}
-    {% if link_question %}
-        <p>
-            In response to: {% linkto answer.question %}
-        </p>
-    {% endif %}
 
-    {% if answer.author == user %}
-        <a href="{% url 'question:edit_answer' pk=answer.id %}">edit</a>
-    {% endif %}
+<div class="card">
+    <div class="card-block">
+        {% if answer.author == user %}
+                <a href="{% url 'question:edit_answer' pk=answer.id %}">edit</a>
+        {% endif %}
+
+        <p>Author: {% linkto answer.author %}</p>
+        <p>In response to: {% linkto answer.question %}</p>
+
+        {% if full_text %}
+            {{ answer.text|linebreaks }}
+        {% else %}
+            {{ answer.text|linebreaks|truncatechars:1000 }}
+        {% endif %}
+    </div>
 </div>

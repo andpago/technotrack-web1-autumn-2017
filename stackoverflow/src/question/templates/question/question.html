@@ -1,8 +1,16 @@
 {% extends "core/base.html" %}
 
 {% block body %}
-    {% include 'question/block/question.html' with question=question  full_text=True %}
-    Answers:
+
+    <h1 class="header-main">{{ question.title }}</h1>
+
+    <div class="card">
+        <div class="card-block">
+            {{ question.text | linebreaks }}
+        </div>
+    </div>
+
+    <h3 class="header-secondary">Answers</h3>
     {% for answer in question.answers.all %}
         {% include 'question/block/answer.html' with answer=answer full_text=True %}
     {% endfor %}
