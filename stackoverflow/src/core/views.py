@@ -14,8 +14,8 @@ from .models import User
 
 def has_search_form(sort_choices):
     class SearchForm(forms.Form):
-        search = forms.CharField(required=False)
-        sort = forms.ChoiceField(choices=sort_choices, required=False)
+        search = forms.CharField(required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
+        sort = forms.ChoiceField(choices=sort_choices, required=False, widget=forms.Select(attrs={'class': 'form-control'}))
 
     def decorator(Class: type):
         class NewClass(Class):

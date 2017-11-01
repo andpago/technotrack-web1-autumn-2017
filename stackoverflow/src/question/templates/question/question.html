@@ -1,4 +1,5 @@
 {% extends "core/base.html" %}
+{% load martortags %}
 
 {% block body %}
 
@@ -6,7 +7,7 @@
 
     <div class="card">
         <div class="card-block">
-            {{ question.text | linebreaks }}
+            {{ question.text | safe_markdown }}
         </div>
     </div>
 
