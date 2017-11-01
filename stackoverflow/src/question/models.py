@@ -4,6 +4,7 @@ from django.urls import reverse, reverse_lazy
 from django.utils import timezone
 
 from category.models import QuestionCategory
+from martor.models import MartorField
 
 User = settings.AUTH_USER_MODEL
 
@@ -13,7 +14,7 @@ User = settings.AUTH_USER_MODEL
 class Question(models.Model):
     author = models.ForeignKey(User, related_name='questions')
     title = models.CharField(max_length=255, null=False)
-    text = models.TextField()
+    text = MartorField()
     category = models.ForeignKey(QuestionCategory, related_name='questions', null=True)
 
     created = models.DateTimeField(editable=False)

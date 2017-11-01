@@ -1,4 +1,5 @@
 {% load linkto %}
+{% load martortags %}
 
 <div class="card">
     <div class="card-header">
@@ -18,9 +19,9 @@
         {% endif %}
 
         {% if full_text %}
-            {{ question.text|linebreaks }}
+            {{ question.text|safe_markdown }}
         {% else %}
-            {{ question.text|linebreaks|truncatechars:1000 }}
+            {{ question.text|safe_markdown|truncatechars:1000 }}
         {% endif %}
     </div>
 </div>

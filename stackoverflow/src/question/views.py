@@ -8,6 +8,8 @@ from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic import DetailView, ListView, CreateView, FormView, UpdateView
 
+
+from martor.fields import MartorFormField
 from core.views import has_search_form, author_only_methods
 from .models import Question, Answer
 

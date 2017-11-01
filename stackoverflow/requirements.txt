@@ -1,3 +1,4 @@
 psycopg2==2.7.3.1
 django==1.11.5
 django-autoslug==1.9.3
+martor==1.2.4

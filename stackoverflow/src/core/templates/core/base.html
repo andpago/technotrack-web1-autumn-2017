@@ -1,4 +1,5 @@
 {% load static %}
+
 <html>
     <head>
         <title>{% block title %} {% endblock %}</title>
@@ -12,6 +13,14 @@
 
         {% endblock %}
         <link rel="stylesheet" href="{% static 'core/css/base.css' %}">
+        <link href="{% static 'plugins/css/ace.min.css' %}" type="text/css" media="all" rel="stylesheet" />
+        <link href="{% static 'plugins/css/semantic.min.css' %}" type="text/css" media="all" rel="stylesheet" />
+        <link href="{% static 'plugins/css/resizable.min.css' %}" type="text/css" media="all" rel="stylesheet" />
+        <link href="{% static 'martor/css/martor.min.css' %}" type="text/css" media="all" rel="stylesheet" />
+        <style>
+            .main-container {margin-top: 7em}
+        </style>
+        <script type="text/javascript" src="{% static 'plugins/js/jquery.min.js' %}"></script>
     </head>
     <body>
         {% include 'core/block/header.html' %}
@@ -22,5 +31,15 @@
         </div>
 
         {% include 'core/block/footer.html' %}
+
+      <script type="text/javascript" src="{% static 'plugins/js/ace.js' %}"></script>
+      <script type="text/javascript" src="{% static 'plugins/js/semantic.min.js' %}"></script>
+      <script type="text/javascript" src="{% static 'plugins/js/mode-markdown.js' %}"></script>
+      <script type="text/javascript" src="{% static 'plugins/js/ext-language_tools.js' %}"></script>
+      <script type="text/javascript" src="{% static 'plugins/js/theme-github.js' %}"></script>
+      <script type="text/javascript" src="{% static 'plugins/js/highlight.min.js' %}"></script>
+      <script type="text/javascript" src="{% static 'plugins/js/resizable.min.js' %}"></script>
+      <script type="text/javascript" src="{% static 'plugins/js/emojis.min.js' %}"></script>
+      <script type="text/javascript" src="{% static 'martor/js/martor.min.js' %}"></script>
     </body>
 </html>
