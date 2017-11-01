@@ -1,0 +1,15 @@
+div#main_title_block {
+    padding: 8em 2em;
+    margin-bottom: 1em;
+    background: #4f20b5;
+    background-image: url('/static/core/images/sf.png');
+    background-position: right;
+    background-attachment: local;
+    background-repeat: no-repeat;
+    background-size: contain;
+    color: white;
+}
+
+img#main_title_block_image {
+    width: 20em;
+}
