@@ -96,6 +96,6 @@ class CreateAnswerView(CreateView):
 @author_only_methods('get', 'post')
 @method_decorator(login_required, name='dispatch')
 class AnswerEditView(UpdateView):
-    template_name = 'answer/answer_edit.html'
+    template_name = 'question/answer_edit.html'
     model = Answer
     fields = ['text']
