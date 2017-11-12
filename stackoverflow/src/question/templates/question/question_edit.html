@@ -1,12 +1,15 @@
 {% extends "core/base.html" %}
+{% load widget_tweaks %}
 
 {% block body %}
+    <br>
     <form action="" method="post">
-        {{ form.title }}
-        {{ form.text }}
-        {{ form.category }}
-        {% csrf_token %}
-
-        <input type="submit" value="Save">
+        <div class="form-group">
+            <label for="title">Title:</label>
+            {{ form.title|add_class:'form-control' }}
+            {{ form.text }}
+            {% csrf_token %}
+            <input class="btn btn-primary" type="submit" value="Save">
+        </div>
     </form>
 {% endblock %}

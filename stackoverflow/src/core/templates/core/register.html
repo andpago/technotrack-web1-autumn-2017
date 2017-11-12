@@ -1,9 +1,17 @@
 {% extends "core/base.html" %}
+{% load widget_tweaks %}
 
 {% block body %}
+    <br>
     <form action="" method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Register" />
+        <div class="form-group">
+            {% csrf_token %}
+            <label for="username">Username:</label>
+            {{ form.username|add_class:"form-control" }}
+            <label for="password">Password:</label>
+            {{ form.password|add_class:"form-control" }}
+            <br>
+            <input type="submit" value="Register" class="btn btn-primary"/>
+        </div>
     </form>
 {% endblock %}
