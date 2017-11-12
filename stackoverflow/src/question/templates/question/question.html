@@ -22,6 +22,7 @@
         <div class="form-group">
             {% csrf_token %}
             {{ answer_form.text|add_class:"form-control" }}
+            {{ answer_form.question }}
             <br>
             <input type="submit" value="Answer" class="btn btn-primary">
         </div>
