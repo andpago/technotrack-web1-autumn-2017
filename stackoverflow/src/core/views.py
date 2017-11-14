@@ -83,13 +83,8 @@ class HomeView(View):
         else:
             context = {}
 
-        context['questions'] = Question.objects.all()[:5]
-        context['answers'] = Answer.objects.all()[:5]
-
-        context['cat_count'] = QuestionCategory.objects.count()
-        context['qsn_count'] = Question.objects.count()
-        context['ans_count'] = Answer.objects.count()
-        context['usr_count'] = User.objects.count()
+        context['questions'] = Question.objects.order_by('-created')[:5]
+        context['answers'] = Answer.objects.order_by('-created')[:5]
 
         kwargs['context'] = context
 
