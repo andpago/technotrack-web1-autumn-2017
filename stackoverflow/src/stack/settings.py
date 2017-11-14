@@ -84,7 +84,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'USER': 'editor',
         'PASSWORD': 'editorpassword',
-        'NAME': 'stackOverflowDb',
+        'NAME': 'stackoverflowdb',
         'HOST': '127.0.0.1',
         'PORT': '5432'
     }

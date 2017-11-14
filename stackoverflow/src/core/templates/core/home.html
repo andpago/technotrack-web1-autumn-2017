@@ -17,16 +17,19 @@ Main page
             <p>Do a lot of other cool stuff, create bugs, be totally unable to fix them and cry about that here</p>
         </div>
     </div>
+    <br>
     <div class="row">
         <div class="col-md-6 col-sm-12">
             <a href="{% url 'question:question_list' %}">
                 <h3>Questions:</h3>
             </a>
+            <br>
             {% include 'question/block/question_list.html' with questions=questions %}
         </div>
 
         <div class="col-md-6 col-sm-12">
             <h3>Answers:</h3>
+            <br>
             {% include 'question/block/answer_list.html' with answers=answers link_question=True %}
         </div>
     </div>
