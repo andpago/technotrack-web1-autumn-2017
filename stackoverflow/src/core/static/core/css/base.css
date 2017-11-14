@@ -47,3 +47,8 @@ form>label {
 form>.btn {
     margin-left: 1em;
 }
+
+span.navbar-toggler-icon {
+    background: url('/static/core/images/sandwich.png');
+    background-size: contain;
+}
