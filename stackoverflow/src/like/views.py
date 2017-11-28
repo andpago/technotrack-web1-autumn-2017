@@ -30,7 +30,9 @@ def create_like(request, *args, **kwargs):
                 return HttpResponseBadRequest()
 
             try:
-                like = Like.objects.get(content_type=ContentType.objects.get(model=model_name), user=user)
+                like = Like.objects.get(content_type=ContentType.objects.get(model=model_name),
+                                        user=user,
+                                        object_id=object_id)
                 like.delete()
 
                 return HttpResponse('off')

@@ -35,7 +35,7 @@ function toggle_like(object_id) {
             if (result === 'on') {
                 btn.addClass('btn-warning');
                 btn.removeClass('btn-success');
-                btn.text('Revoke like');
+                btn.text('Dislike');
             } else {
                 btn.addClass('btn-success');
                 btn.removeClass('btn-warning');
