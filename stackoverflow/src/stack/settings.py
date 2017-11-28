@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'question',
     'category',
     'martor',
-    'widget_tweaks'
+    'widget_tweaks',
+    'like'
 ]
 
 MIDDLEWARE = [
