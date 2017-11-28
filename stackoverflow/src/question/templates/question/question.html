@@ -6,6 +6,12 @@
 
     <h1 class="header-main">{{ question.title }}</h1>
 
+    <div class="floating">
+        <button class="btn btn-primary">
+            Answer!
+        </button>
+    </div>
+
     <div class="card">
         <div class="card-block">
             {{ question.text | safe_markdown }}
