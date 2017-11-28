@@ -1,9 +1,19 @@
 {% load linkto %}
+{% load user_likes_this %}
 
 <div class="card">
     <div class="card-block">
         {% if answer.author == user %}
                 <a href="{% url 'question:edit_answer' pk=answer.id %}">edit</a>
+        {% endif %}
+
+        {% if user.is_authenticated %}
+            {% user_likes_this 'answer' user answer as does_like %}
+            <button class="btn js-like-btn {% if does_like %}btn-warning {% else %}btn-success {% endif %}"
+                    id="like_answer_{{ answer.id }}"
+                    onclick="toggle_like('answer', '{{ answer.id }}');">
+            {% if does_like %}Dislike {% else %}Like{% endif %}
+            </button>
         {% endif %}
 
         <p>Author: {% linkto answer.author %}</p>

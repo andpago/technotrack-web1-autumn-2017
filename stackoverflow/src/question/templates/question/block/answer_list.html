@@ -1,5 +1,7 @@
 <div>
 {% for answer in answers|slice:":20" %}
-    {% include 'question/block/answer.html' with answer=answer link_question=link_question %}
+{#    {% include 'question/block/answer.html' with answer=answer link_question=link_question %}#}
+    <div class="autoupdate" data-type="answer" data-id="{{ answer.id }}">
+    </div>
 {% endfor %}
 </div>

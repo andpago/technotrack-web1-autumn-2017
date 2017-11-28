@@ -19,8 +19,8 @@ function get_csrf_token() {
     return getCookie('csrftoken')
 }
 
-function toggle_like(object_id) {
-    var btn_id = '#like_question_' + object_id;
+function toggle_like(type, object_id) {
+    var btn_id = '#like_' + type + '_' + object_id;
 
     $.ajax({
         beforeSend: function (xhr, settings) {
@@ -28,7 +28,7 @@ function toggle_like(object_id) {
         },
         url: '/like/create',
         method: 'POST',
-        data: {model_name: 'question', object_id: object_id},
+        data: {model_name: type, object_id: object_id},
         success: function (result) {
             var btn = $(btn_id);
 

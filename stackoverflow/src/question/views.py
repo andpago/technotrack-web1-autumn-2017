@@ -113,6 +113,6 @@ def ajax_get_question(request, id):
 def ajax_get_answer(request, id):
     try:
         a = Answer.objects.get(id=id)
-        return render(request, 'answer/block/answer.html', {'answer': a})
+        return render(request, 'question/block/answer.html', {'answer': a})
     except Answer.DoesNotExist:
         return HttpResponse('')

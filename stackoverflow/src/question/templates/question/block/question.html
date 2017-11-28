@@ -18,7 +18,7 @@
             {% user_likes_this 'question' user question as does_like %}
             <button class="btn js-like-btn {% if does_like %}btn-warning {% else %}btn-success {% endif %}"
                     id="like_question_{{ question.id }}"
-                    onclick="toggle_like('{{ question.id }}');">
+                    onclick="toggle_like('question', '{{ question.id }}');">
             {% if does_like %}Dislike {% else %}Like{% endif %}
             </button>
         {% endif %}
