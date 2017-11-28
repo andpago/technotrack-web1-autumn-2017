@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseForbidden, HttpResponseBadRequest, Http404
+from django.http import HttpResponseForbidden, HttpResponseBadRequest, Http404, HttpResponse
 from django.shortcuts import render
 
 # Create your views here.
@@ -100,3 +100,19 @@ class AnswerEditView(UpdateView):
     template_name = 'question/answer_edit.html'
     model = Answer
     fields = ['text']
+
+
+def ajax_get_question(request, id):
+    try:
+        q = Question.objects.get(id=id)
+        return render(request, 'question/block/question.html', {'question': q})
+    except Question.DoesNotExist:
+        return HttpResponse('')
+
+
+def ajax_get_answer(request, id):
+    try:
+        a = Answer.objects.get(id=id)
+        return render(request, 'answer/block/answer.html', {'answer': a})
+    except Answer.DoesNotExist:
+        return HttpResponse('')

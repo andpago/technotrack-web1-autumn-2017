@@ -16,7 +16,7 @@ User = get_user_model()
 def linkto(context, obj, **kwargs):
     cls = type(obj)
     if cls not in linkto.info_getters.keys():
-        raise Exception("cannot create link to an object of type " + cls)
+        raise Exception("cannot create link to an object of type {}".format(cls))
 
     info = linkto.info_getters[type(obj)](obj)
     info.update(kwargs)

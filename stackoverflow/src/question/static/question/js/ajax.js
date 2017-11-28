@@ -44,3 +44,22 @@ function toggle_like(object_id) {
         }
     });
 }
+
+function get_object(type, id) {
+    return $.ajax({
+        url: '/question/ajax/get/' + type + '/' + id,
+        async: false,
+    }).responseText;
+}
+
+function autoupdate_all() {
+    $.each($('.autoupdate'), function (i, obj) {
+        var id = $(obj).data('id');
+        var type = $(obj).data('type');
+        $(obj).html(get_object(type, id));
+    });
+}
+
+setInterval(autoupdate_all, 5000);
+
+autoupdate_all();

@@ -20,7 +20,6 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
         <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-        <script src="{% static 'question/js/ajax.js' %}"></script>
 
         {% block head %}
 
@@ -37,14 +36,16 @@
 
         {% include 'core/block/footer.html' %}
 
-      <script type="text/javascript" src="{% static 'plugins/js/ace.js' %}"></script>
-      <script type="text/javascript" src="{% static 'plugins/js/semantic.min.js' %}"></script>
-      <script type="text/javascript" src="{% static 'plugins/js/mode-markdown.js' %}"></script>
-      <script type="text/javascript" src="{% static 'plugins/js/ext-language_tools.js' %}"></script>
-      <script type="text/javascript" src="{% static 'plugins/js/theme-github.js' %}"></script>
-      <script type="text/javascript" src="{% static 'plugins/js/highlight.min.js' %}"></script>
-      <script type="text/javascript" src="{% static 'plugins/js/resizable.min.js' %}"></script>
-      <script type="text/javascript" src="{% static 'plugins/js/emojis.min.js' %}"></script>
-      <script type="text/javascript" src="{% static 'martor/js/martor.min.js' %}"></script>
+
+    <script src="{% static 'question/js/ajax.js' %}"></script>
+    <script type="text/javascript" src="{% static 'plugins/js/ace.js' %}"></script>
+    <script type="text/javascript" src="{% static 'plugins/js/semantic.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'plugins/js/mode-markdown.js' %}"></script>
+    <script type="text/javascript" src="{% static 'plugins/js/ext-language_tools.js' %}"></script>
+    <script type="text/javascript" src="{% static 'plugins/js/theme-github.js' %}"></script>
+    <script type="text/javascript" src="{% static 'plugins/js/highlight.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'plugins/js/resizable.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'plugins/js/emojis.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'martor/js/martor.min.js' %}"></script>
     </body>
 </html>

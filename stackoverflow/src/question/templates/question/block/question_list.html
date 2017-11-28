@@ -1,5 +1,6 @@
 <div>
 {% for question in questions|slice:":20" %}
-    {% include 'question/block/question.html' with question=question author=question.author link=True %}
+    <div class="autoupdate" data-type="question", data-id="{{ question.id }}">
+    </div>
 {% endfor %}
 </div>
