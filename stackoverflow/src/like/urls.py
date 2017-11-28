@@ -1,5 +1,7 @@
 from django.conf.urls import url
 
+from .views import create_like
+
 urlpatterns = [
-    # e.g. url(r'^edit_answer/(?P<pk>\d+)$', AnswerEditView.as_view(), name='edit_answer'),
+    url(r'^create$', create_like, name='create')
 ]

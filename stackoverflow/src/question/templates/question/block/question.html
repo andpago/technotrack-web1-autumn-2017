@@ -13,6 +13,9 @@
         <p>Author: {% linkto question.author %}</p>
         <p>Category: {{ question.category.name }}</p>
 
+        {% if user.is_authenticated %}
+            <button class="btn js-like-btn" id="like_question_{{ question.id }}" onclick="toggle_like('{{ question.id }}');">Like</button>
+        {% endif %}
 
         {% if question.author == user %}
             <a href="{% url 'question:edit_question' pk=question.id %}">edit</a>
