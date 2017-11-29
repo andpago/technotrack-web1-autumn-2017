@@ -52,7 +52,70 @@ function get_object(type, id) {
     }).responseText;
 }
 
+
+function get_answer_ids_for_question(question_id) {
+    return JSON.parse($.ajax({
+        url: '/question/ajax/get/answers_for/' + question_id,
+        async: false,
+    }).responseText)['ids'];
+}
+
+function get_answers_top(n=5) {
+    return JSON.parse($.ajax({
+        url: '/question/ajax/get/answers_top/' + n,
+        async: false,
+    }).responseText)['ids'];
+}
+
+var answer_ids = {};
+// e.g.
+// var answer_ids = {
+//     9: [1, 2, 3]
+// };
+
 function autoupdate_all() {
+    $.each($('.autoupdate_container'), function (i, obj) {
+        var container = $(obj);
+
+        if (container.data('type') === 'answer') {
+            var qid = container.data('question-id');
+
+            if (qid === 'any') {
+                if (typeof answer_ids['any'] === 'undefined') {
+                    answer_ids['any'] = get_answers_top(5);
+                    aids = answer_ids['any'];
+
+                    html = '';
+
+                    for (var id of aids) {
+                        html += '<div class="autoupdate" data-type="answer" data-id="' + id + '"></div>';
+                    }
+
+                    container.html(html);
+                }
+
+
+
+            } else if (typeof qid !== 'undefined') {
+
+                var aids = get_answer_ids_for_question(container.data('question-id'));
+                var old_ids = new Set(answer_ids[qid]);
+
+                var new_ids = aids.filter(function(x){return !old_ids.has(x);});
+
+                var html = container.html();
+
+                for (var id of new_ids) {
+                    html += '<div class="autoupdate" data-type="answer" data-id="' + id + '"></div>';
+                }
+
+                answer_ids[qid] = aids;
+
+                container.html(html);
+            }
+        }
+    });
+
     $.each($('.autoupdate'), function (i, obj) {
         var id = $(obj).data('id');
         var type = $(obj).data('type');

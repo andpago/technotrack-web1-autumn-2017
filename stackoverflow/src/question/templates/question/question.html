@@ -28,7 +28,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                     {% url 'question:create_answer' pk=question.id as submit_url %}
-                    <button type="button" class="btn btn-primary" onclick="$('#modalForm').ajaxSend({url: '{{ submit_url }}', method: 'post' });">Answer</button>
+                    <button type="button" class="btn btn-primary" onclick="$.post('{{ submit_url }}', $('#modalForm').serialize()); setTimeout(autoupdate_all, 100);" data-dismiss="modal">Answer</button>
                 </div>
             </div>
         </div>
@@ -47,9 +47,7 @@
     </div>
 
     <h3 class="header-secondary">Answers</h3>
-    {% for answer in question.answers.all %}
-        {% include 'question/block/answer.html' with answer=answer full_text=True %}
-    {% endfor %}
+        {% include 'question/block/answer_list.html' with question_id=question.id full_text=True %}
     <br>
     <h3 class="header-secondary">Answer this question</h3>
     <form method="POST" action="{% url 'question:create_answer' pk=question.id %}">

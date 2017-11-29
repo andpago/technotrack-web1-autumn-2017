@@ -14,6 +14,11 @@
         <p>Author: {% linkto question.author %}</p>
         <p>Category: {{ question.category.name }}</p>
 
+        {% if question.author == user %}
+
+            <a href="{% url 'question:edit_question' pk=question.id %}"><button class="btn btn-primary">Edit</button></a>
+        {% endif %}
+
         {% if user.is_authenticated %}
             {% user_likes_this 'question' user question as does_like %}
             <button class="btn js-like-btn {% if does_like %}btn-warning {% else %}btn-success {% endif %}"
@@ -23,9 +28,7 @@
             </button>
         {% endif %}
 
-        {% if question.author == user %}
-            <a href="{% url 'question:edit_question' pk=question.id %}">edit</a>
-        {% endif %}
+
 
         {% if full_text %}
             {{ question.text|safe_markdown }}

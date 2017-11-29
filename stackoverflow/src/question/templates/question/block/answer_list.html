@@ -1,6 +1,5 @@
-<div>
+<div class="autoupdate_container" data-type="answer" data-question-id="{% if question_id %}{{ question_id }}{% else %}any{% endif %}">
 {% for answer in answers|slice:":20" %}
-{#    {% include 'question/block/answer.html' with answer=answer link_question=link_question %}#}
     <div class="autoupdate" data-type="answer" data-id="{{ answer.id }}">
     </div>
 {% endfor %}

@@ -4,7 +4,7 @@
 <div class="card">
     <div class="card-block">
         {% if answer.author == user %}
-                <a href="{% url 'question:edit_answer' pk=answer.id %}">edit</a>
+                <a href="{% url 'question:edit_answer' pk=answer.id %}"><button class="btn btn-primary">Edit</button></a>
         {% endif %}
 
         {% if user.is_authenticated %}

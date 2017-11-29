@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseForbidden, HttpResponseBadRequest, Http404, HttpResponse
+from django.http import HttpResponseForbidden, HttpResponseBadRequest, Http404, HttpResponse, JsonResponse
 from django.shortcuts import render
 
 # Create your views here.
@@ -108,6 +108,23 @@ def ajax_get_question(request, id):
         return render(request, 'question/block/question.html', {'question': q})
     except Question.DoesNotExist:
         return HttpResponse('')
+
+
+def ajax_get_answer_ids_for_question(request, question_id):
+    answers = Answer.objects.filter(question_id=question_id)
+
+    return JsonResponse({"ids": [answer.id for answer in answers]})
+
+
+def ajax_get_answers_top(request, n=5):
+    try:
+        n = int(n)
+    except:
+        n = 5
+    if n > 20: n = 20
+    answers = Answer.objects.all()[:n]
+
+    return JsonResponse({'ids': [answer.id for answer in answers]})
 
 
 def ajax_get_answer(request, id):
