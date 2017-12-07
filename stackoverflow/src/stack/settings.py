@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '5^bsmq(n)j^b28f4b!@-(qsg06wk+$m3rxrevyz_@a@yg)ib6w'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', 'crappy-stackoverflow.heroku.com']
 
 AUTH_USER_MODEL = 'core.User'
 
