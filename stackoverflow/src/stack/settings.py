@@ -74,7 +74,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'stackoverflow.src.stack.wsgi.application'
+WSGI_APPLICATION = 'stack.wsgi.application'
 
 
 # Database
