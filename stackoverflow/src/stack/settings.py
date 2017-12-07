@@ -56,7 +56,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'stack.urls'
+ROOT_URLCONF = 'stackoverflow.src.stack.urls'
 
 TEMPLATES = [
     {
