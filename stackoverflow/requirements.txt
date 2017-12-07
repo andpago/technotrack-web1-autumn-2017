@@ -3,3 +3,4 @@ django==1.11.5
 django-autoslug==1.9.3
 martor==1.2.4
 django-widget-tweaks==1.4.1
+gunicorn==19.7.1
