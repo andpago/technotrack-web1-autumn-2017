@@ -56,7 +56,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'stackoverflow.src.stack.urls'
+ROOT_URLCONF = 'stack.urls'
 
 TEMPLATES = [
     {
@@ -74,7 +74,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'stack.wsgi.application'
+WSGI_APPLICATION = 'stackoverflow.src.wsgi.application'
 
 
 # Database
