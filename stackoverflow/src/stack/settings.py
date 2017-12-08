@@ -25,7 +25,10 @@ SECRET_KEY = '5^bsmq(n)j^b28f4b!@-(qsg06wk+$m3rxrevyz_@a@yg)ib6w'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'localhost',
+    'crappy-stackoverflow.herokuapp.com'
+]
 
 AUTH_USER_MODEL = 'core.User'
 
@@ -48,6 +51,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -83,10 +87,10 @@ WSGI_APPLICATION = 'stack.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'USER': 'editor',
-        'PASSWORD': 'editorpassword',
-        'NAME': 'stackoverflowdb',
-        'HOST': '127.0.0.1',
+        'USER': 'ieqticixuvlsgh',
+        'PASSWORD': '8a7747fb800fa6fbe706d25df7238f9c4a86b5e5b374c00e8f3fdd8b6f4eb0be',
+        'NAME': 'd9j8hmhhq2al6p',
+        'HOST': 'ec2-46-137-94-97.eu-west-1.compute.amazonaws.com',
         'PORT': '5432'
     }
 }
@@ -130,12 +134,16 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
+PROJECT_ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
 STATIC_URL = '/static/'
 LOGOUT_REDIRECT_URL = '/'
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/login'
-STATIC_ROOT = '../collected_static'
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 
+STATICFILES_DIRS = (
+    os.path.join(PROJECT_ROOT, 'static'),
+)
 
 
 # Martor configuration
