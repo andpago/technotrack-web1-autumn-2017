@@ -141,9 +141,6 @@ LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/login'
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 
-STATICFILES_DIRS = (
-    os.path.join(PROJECT_ROOT, 'static'),
-)
 
 
 # Martor configuration

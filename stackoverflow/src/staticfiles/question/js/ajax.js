@@ -19,13 +19,6 @@ function get_csrf_token() {
     return getCookie('csrftoken')
 }
 
-function get_n_likes(model, id) {
-    return JSON.parse($.ajax({
-        url: '/question/ajax/get/' + model + '_n_likes/' + id,
-        async: false,
-    }).responseText)['n'];
-}
-
 function toggle_like(type, object_id) {
     var btn_id = '#like_' + type + '_' + object_id;
 
@@ -38,16 +31,16 @@ function toggle_like(type, object_id) {
         data: {model_name: type, object_id: object_id},
         success: function (result) {
             var btn = $(btn_id);
-            var n_likes = get_n_likes(type, object_id);
 
             if (result === 'on') {
                 btn.addClass('btn-warning');
                 btn.removeClass('btn-success');
+                btn.text('Dislike');
             } else {
                 btn.addClass('btn-success');
                 btn.removeClass('btn-warning');
+                btn.text('Like');
             }
-            btn.text('Like ' + n_likes);
         }
     });
 }

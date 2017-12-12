@@ -133,3 +133,19 @@ def ajax_get_answer(request, id):
         return render(request, 'question/block/answer.html', {'answer': a})
     except Answer.DoesNotExist:
         return HttpResponse('')
+
+
+def ajax_get_answer_n_likes(request, id):
+    try:
+        a = Answer.objects.get(id=id)
+        return JsonResponse({'n': a.count_likes()})
+    except Answer.DoesNotExist:
+        return JsonResponse({'n': 0})
+
+
+def ajax_get_question_n_likes(request, id):
+    try:
+        q = Question.objects.get(id=id)
+        return JsonResponse({'n': q.count_likes()})
+    except Question.DoesNotExist:
+        return JsonResponse({'n': 0})

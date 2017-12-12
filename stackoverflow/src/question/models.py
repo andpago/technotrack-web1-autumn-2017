@@ -1,3 +1,4 @@
+from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.conf import settings
 from django.urls import reverse, reverse_lazy
@@ -5,6 +6,8 @@ from django.utils import timezone
 
 from category.models import QuestionCategory
 from martor.models import MartorField
+
+from like.models import Like
 
 User = settings.AUTH_USER_MODEL
 
@@ -33,6 +36,11 @@ class Question(models.Model):
     def __str__(self):
         return 'Question #{} by @{}: "{}"'.format(self.pk, self.author.username, self.title[:20])
 
+    def count_likes(self):
+        return Like.objects\
+            .filter(content_type=ContentType.objects.get(model='question'), object_id=self.id)\
+            .count()
+
     class Meta:
         verbose_name = "question"
         verbose_name_plural = "questions"
@@ -57,6 +65,11 @@ class Answer(models.Model):
 
     def get_absolute_url(self):
         return reverse('question:question', kwargs={'pk': self.question_id})
+
+    def count_likes(self):
+        return Like.objects\
+            .filter(content_type=ContentType.objects.get(model='answer'), object_id=self.id)\
+            .count()
 
     class Meta:
         verbose_name = "answer"

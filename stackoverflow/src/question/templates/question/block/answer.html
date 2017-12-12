@@ -12,7 +12,7 @@
             <button class="btn js-like-btn {% if does_like %}btn-warning {% else %}btn-success {% endif %}"
                     id="like_answer_{{ answer.id }}"
                     onclick="toggle_like('answer', '{{ answer.id }}');">
-            {% if does_like %}Dislike {% else %}Like{% endif %}
+            Like {{ answer.count_likes }}
             </button>
         {% endif %}
 

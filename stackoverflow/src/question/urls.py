@@ -1,7 +1,8 @@
 from django.conf.urls import url
 
 from .views import QuestionDetailView, QuestionListView, QuestionCreateView, QuestionEditView, AnswerEditView, \
-    CreateAnswerView, ajax_get_question, ajax_get_answer, ajax_get_answer_ids_for_question, ajax_get_answers_top
+    CreateAnswerView, ajax_get_question, ajax_get_answer, ajax_get_answer_ids_for_question, ajax_get_answers_top, \
+    ajax_get_answer_n_likes, ajax_get_question_n_likes
 
 urlpatterns = [
     url(r'^(?P<pk>\d+)/create_answer$', CreateAnswerView.as_view(), name='create_answer'),
@@ -13,6 +14,8 @@ urlpatterns = [
     url(r'^ajax/get/answers_for/(\d+)$', ajax_get_answer_ids_for_question),
     url(r'^ajax/get/answers_top/(\d+)?$', ajax_get_answers_top),
     url(r'^ajax/get/answer/(\d+)$', ajax_get_answer),
+    url(r'^ajax/get/answer_n_likes/(\d+)$', ajax_get_answer_n_likes),
+    url(r'^ajax/get/question_n_likes/(\d+)$', ajax_get_question_n_likes),
 ]
 
 
