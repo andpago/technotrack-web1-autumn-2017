@@ -8,6 +8,8 @@
             <label for="title">Title:</label>
             {{ form.title|add_class:'form-control' }}
             {{ form.text }}
+            <label for="category">Category:</label>
+            {{ form.category|add_class:'form-control'}}
             {% csrf_token %}
             <input class="btn btn-primary" type="submit" value="Save">
         </div>
